@@ -5,11 +5,20 @@
 
 This independent portfolio project examines where the first-year employee experience may need additional support and how aggregated workforce data can guide a fair, testable retention response.
 
-The case study combines workforce segmentation, privacy-aware analysis, reporting automation and visible human-review safeguards.
-
 [**View the complete People Analytics case study (PDF)**](Ehsaan-Khan-People-Analytics-Case-Study.pdf)
 
-> **Portfolio disclosure:** This project uses entirely synthetic and aggregated data. It contains no employer or employee information. Financial benefits are illustrative planning scenarios, not realised outcomes.
+> **Portfolio disclosure:** This project uses entirely synthetic workforce data and contains no employer or employee information. Financial benefits are illustrative planning scenarios, not realised outcomes.
+
+## Technical Project Layer
+
+This repository includes a reproducible Python workflow designed around responsible workforce analytics.
+
+- `data/generate_workforce_data.py` — creates 1,240 reproducible synthetic employee records without protected characteristics.
+- `python/people_analysis.py` — validates data, creates tenure and segment summaries, calculates turnover and absence metrics, and suppresses small groups.
+- `requirements.txt` — Python dependency list.
+- `outputs/` is created automatically when the analysis runs.
+
+The generated dataset produces approximately 14% voluntary turnover and ~4.2% absence, with the intended priority group—Customer Operations → Under 12 Months → Evening—showing materially higher turnover than the overall workforce.
 
 ## Business Question
 
@@ -17,85 +26,48 @@ The case study combines workforce segmentation, privacy-aware analysis, reportin
 
 The intended audience is people leadership, operations and workforce planning.
 
-## Workforce Dataset and Model
+## Python Techniques Demonstrated
 
-| Workforce element   |                                                  Scope |
-| ------------------- | -----------------------------------------------------: |
-| Monthly snapshots   |                                                     12 |
-| Employees           |                                                  1,240 |
-| Voluntary exits     |                                                    183 |
-| Model grain         |                              Employee snapshot × month |
-| Analysis dimensions | Date, organisational unit, role, shift and tenure band |
-| Data classification |                          100% synthetic and aggregated |
-
-## Key Findings
-
-* Overall voluntary turnover reached **14.8%**, an increase of 1.6 percentage points year on year.
-* First-year turnover reached **24.6%**, the highest rate across all tenure bands.
-* The overall absence rate was **4.2%**.
-* The tenure analysis showed that the strongest retention signal appeared within an employee’s first 12 months.
-
-## Priority Group
-
-The clearest aggregated signal appeared in:
-
-**Customer Operations → Under 12 Months’ Tenure → Evening Shift**
-
-* Voluntary turnover reached **31.4%**.
-* The group accounted for **18.6% of voluntary exits** while representing only **9.2% of headcount**.
-* Its turnover rate was approximately **2.1 times the portfolio average**.
-* Its share of exits was roughly twice its share of headcount.
-
-This signal identifies where additional support could be tested. It should not be used to make decisions about individual employees.
-
-## Recommended 90-Day Support Pilot
-
-I would begin with a focused support journey rather than a blanket policy:
-
-| Stage  | Proposed action                                   |
-| ------ | ------------------------------------------------- |
-| Day 0  | Confirm clear role and shift expectations         |
-| Day 30 | Hold a structured manager check-in                |
-| Day 60 | Conduct a stay conversation                       |
-| Day 90 | Review the emerging pattern and adapt the support |
-
-The pilot should measure onboarding experience, retention and voluntary exits before any wider rollout.
+- `pandas` data loading and date handling
+- Tenure-band creation with `pd.cut`
+- Grouped aggregations
+- Reusable analytical functions
+- Data-validation assertions
+- Privacy suppression for small groups
+- CSV output generation
+- Business scenario modelling
 
 ## Responsible Analytics Safeguards
 
-* Use aggregated trends to guide conversations, not individual employment decisions.
-* Suppress results for groups that fall below an agreed minimum size.
-* Restrict detailed workforce data according to role and business need.
-* Exclude protected characteristics from intervention targeting.
-* Retain human review at every interpretation and decision stage.
-* Begin with support, listen to context and measure outcomes fairly.
+- No protected characteristics are generated or analysed.
+- Results are aggregated before interpretation.
+- Groups below 25 employees are suppressed.
+- No individual employee risk scores are created.
+- The analysis is intended to guide support conversations, not individual employment decisions.
+- Human review remains essential before any intervention.
 
-A scenario model indicated approximately **£84,000 of potential cost avoidance** if 12 exits were prevented at an assumed cost of £7,000 per exit. This is an illustrative planning scenario and not a realised saving.
+## Key Business Finding
 
-## Reporting Automation
+The strongest signal appears among first-year employees working evening shifts in Customer Operations. The appropriate response is therefore a focused onboarding and manager-support pilot rather than an employee-level predictive model or blanket retention policy.
 
-The proposed reporting workflow reduces repetitive manual handling while preserving privacy controls and analyst judgement.
+## Recommended 90-Day Support Pilot
 
-| Workflow                     |        Processing time |
-| ---------------------------- | ---------------------: |
-| Manual reporting process     |     3 hours 10 minutes |
-| Controlled refresh           |             38 minutes |
-| Capacity returned            |  152 minutes per cycle |
-| Illustrative annual capacity | Approximately 61 hours |
+| Stage | Proposed action |
+| --- | --- |
+| Day 0 | Confirm role and shift expectations |
+| Day 30 | Hold a structured manager check-in |
+| Day 60 | Conduct a stay conversation |
+| Day 90 | Review the pattern and adapt support |
 
-Human review remains at privacy checks, exception handling and narrative commentary.
+## How to Run
 
-## Tools and Techniques Demonstrated
+1. Install dependencies with `pip install -r requirements.txt`.
+2. Run `python data/generate_workforce_data.py`.
+3. Run `python python/people_analysis.py`.
+4. Inspect `outputs/tenure_summary.csv` and `outputs/segment_summary.csv`.
 
-* Power BI report and KPI design
-* Power Query workflow design
-* Workforce and retention analysis
-* Dimensional data modelling
-* Reporting automation
-* Privacy-aware aggregation
-* Data-quality and access controls
-* Decision-focused stakeholder communication
+## Working Style
 
-## Approach
+I use AI assistance where appropriate to accelerate technical implementation, while retaining ownership of the business question, analytical logic, validation, interpretation and communication of results.
 
-**Listen to context → Make safeguards visible → Focus the action → Test fairly → Review before scaling**
+**Protect privacy → Validate the data → Find the aggregated signal → Focus support → Measure before scaling**
