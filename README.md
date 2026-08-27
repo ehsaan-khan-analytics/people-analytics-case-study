@@ -1,6 +1,7 @@
 # People Analytics Case Study
 
 ## First-Year Turnover, Responsible Workforce Insight and Retention Support
+![People Analytics portfolio cover](Ehsaan-Khan-People-Analytics-Cover.png)
 
 This independent portfolio project examines where the first-year employee experience may need additional support and how aggregated workforce data can guide a fair, testable retention response.
 
